@@ -4,9 +4,12 @@ import PackageDescription
 let package = Package(
     name: "cinenis-api",
     platforms: [
-       .macOS(.v13)
+        .macOS(.v13)
     ],
-    dependencies: [
+    products: [ // <-- ¡Ahora products va primero!
+        .executable(name: "App", targets: ["App"]),
+    ],
+    dependencies: [ // <-- Y dependencies va después
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.115.0"),
         // 🗄 An ORM for SQL and NoSQL databases.
@@ -18,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "cinenis-api",
+            name: "App", // Ya corregimos esto en el paso anterior, asegúrate de que sea "App"
             dependencies: [
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentMySQLDriver", package: "fluent-mysql-driver"),
@@ -29,10 +32,10 @@ let package = Package(
             swiftSettings: swiftSettings
         ),
         .testTarget(
-            name: "cinenis-apiTests",
+            name: "AppTests",
             dependencies: [
-                .target(name: "cinenis-api"),
-                .product(name: "VaporTesting", package: "vapor"),
+                .target(name: "App"),
+                .product(name: "XCTVapor", package: "vapor"),
             ],
             swiftSettings: swiftSettings
         )
