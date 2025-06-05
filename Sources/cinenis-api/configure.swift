@@ -9,11 +9,11 @@ public func configure(_ app: Application) async throws {
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
 app.databases.use(DatabaseConfigurationFactory.mysql(
-        hostname: Environment.get("DATABASE_HOST"),
-        port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)),
-        username: Environment.get("DATABASE_USERNAME"),
-        password: Environment.get("DATABASE_PASSWORD") ,
-        database: Environment.get("DATABASE_NAME"),
+        hostname: Environment.get("DATABASE_HOST") ?? "",
+        port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? 25060,
+        username: Environment.get("DATABASE_USERNAME") ?? "",
+        password: Environment.get("DATABASE_PASSWORD") ?? "",
+        database: Environment.get("DATABASE_NAME") ?? "",
         tlsConfiguration: .forClient(certificateVerification: .none)
     ), as: .mysql)
 
