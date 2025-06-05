@@ -9,5 +9,5 @@ struct SalesDTO : Content {
     var total : Double
     var numberOfSeats : Int
     var seatsReserved : String
-    var functionID: UUID
+    var functionID: Int
 }

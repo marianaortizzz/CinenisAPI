@@ -5,7 +5,7 @@ final class Function: Model, Content, @unchecked Sendable {
     static let schema = "functions" 
 
     @ID(key: .id)
-    var id: UUID?
+    var id: Int?
 
     @Field(key: "function_date")
     var functionDate: Date

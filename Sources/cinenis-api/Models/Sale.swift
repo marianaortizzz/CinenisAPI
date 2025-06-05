@@ -4,7 +4,7 @@ import Vapor
 final class Sale: Model, Content, @unchecked Sendable {
     static let schema = "sale" 
     @ID(key: .id)
-    var id: UUID?
+    var id: Int?
 
     @Field(key: "sale_date")
     var saleDate: Date

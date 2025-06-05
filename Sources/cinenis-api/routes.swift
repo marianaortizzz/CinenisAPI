@@ -10,4 +10,7 @@ app.get { req async in
         "Hello, world!"
     }
 
+    
+    try app.register(collection: SalesController())
+
 }
