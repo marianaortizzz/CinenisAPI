@@ -4,7 +4,7 @@ import Vapor
 final class Function: Model, Content, @unchecked Sendable {
     static let schema = "functions" 
 
-    @ID(key: .id)
+    @ID(custom: "id", generatedBy: .database)
     var id: Int?
 
     @Field(key: "function_date")
@@ -25,11 +25,11 @@ final class Function: Model, Content, @unchecked Sendable {
 
     nonisolated(unsafe) init() { }
 
-    nonisolated(unsafe) init(id: UUID? = nil, functionDate: Date, room: Int, availability: String, movieID: Movie.IDValue) {
+    nonisolated(unsafe) init(id: Int? = nil, functionDate: Date, room: Int, availability: String, movieID: Movie.IDValue) {
         self.id = id
         self.functionDate = functionDate
         self.room = room
         self.availability = availability
-        self.$movie.id = movieID // Assigning the ID of the parent Movie
+        self.$movie.id = movieID 
     }
 }

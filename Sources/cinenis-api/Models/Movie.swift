@@ -2,10 +2,10 @@ import Fluent
 import Vapor
 
 final class Movie: Model, Content, @unchecked Sendable {
-    static let schema = "movies" // Fluent will use "movies" as the table name
+    static let schema = "movies" 
 
-    @ID(key: .id)
-    var id: UUID? // Using UUID as the primary key type, common in Vapor/Fluent
+    @ID(custom: "id", generatedBy: .database)
+    var id: Int?
 
     @Field(key: "title")
     var title: String
@@ -38,7 +38,7 @@ final class Movie: Model, Content, @unchecked Sendable {
 
     nonisolated(unsafe) init() { } 
 
-    nonisolated(unsafe) init(id: UUID? = nil, title: String, genre: String, year: Int, image: String, description: String, stars: Int, duration: Int, classification: String, schedule: String) {
+    nonisolated(unsafe) init(id: Int? = nil, title: String, genre: String, year: Int, image: String, description: String, stars: Int, duration: Int, classification: String, schedule: String) {
         self.id = id
         self.title = title
         self.genre = genre
