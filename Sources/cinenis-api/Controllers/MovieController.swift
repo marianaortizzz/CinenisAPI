@@ -6,7 +6,7 @@ struct MovieController: RouteCollection {
     func boot(routes: any RoutesBuilder) throws {
     let movies = routes.grouped("movies")
     movies.get(use: getMovie)
-    movies.get(":id", use: getMovieBtId)
+    movies.get(":id", use: getMovieById)
     movies.post(use: createMovie)
     movies.put(":id", use: updateMovie)
     movies.delete(":id", use: deleteMovie)
@@ -39,7 +39,7 @@ struct MovieController: RouteCollection {
             throw Abort(.badRequest, reason: "Movie ID is required")
         }
 
-        guard let movie = try await Movie.query(on: req.db).filter(\.$id == movieId).first() else {
+        guard let movie = try await Movie.query(on: req.db).filter(\Movie.$id == movieId).first() else {
             throw Abort(.notFound, reason: "Movie not found")
         }
 

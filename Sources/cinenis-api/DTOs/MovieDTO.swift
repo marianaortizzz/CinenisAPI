@@ -2,7 +2,7 @@ import Vapor
 import Foundation
 
 struct MovieDTO: Content {
-    var id: Int
+    var id: Int?
     var title: String
     var genre: String
     var year: Int
