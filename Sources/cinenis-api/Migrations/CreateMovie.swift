@@ -3,7 +3,7 @@ import Vapor
 struct CreateMovie: AsyncMigration {
     func prepare(on database: any  Database) async throws {
         try await database.schema(Movie.schema)
-            .id()
+            .field("id", .int, .identifier(auto: true), .required)
             .field("title", .string, .required)
             .field("genre", .string, .required)
             .field("year", .int, .required)

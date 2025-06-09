@@ -2,9 +2,9 @@ import Fluent
 import Vapor
 
 final class Movie: Model, Content, @unchecked Sendable {
-    static let schema = "movies" // Fluent will use "movies" as the table name
+    static let schema = "movies" 
 
-    @ID(custom: .id)
+    @ID(custom: "id", generatedBy: .database)
     var id: Int?
 
     @Field(key: "title")

@@ -3,8 +3,8 @@ import Vapor
 
 final class Sale: Model, Content, @unchecked Sendable {
     static let schema = "sale" 
-    @ID(key: .id)
-    var id: UUID?
+    @ID(custom: "id", generatedBy: .database)
+    var id: Int?
 
     @Field(key: "sale_date")
     var saleDate: Date
@@ -30,7 +30,7 @@ final class Sale: Model, Content, @unchecked Sendable {
 
     nonisolated(unsafe) init() { }
 
-    nonisolated(unsafe) init(id: UUID? = nil, saleDate: Date, username: String, mail: String, total: Double, numberOfSeats: Int, seatsReserved: String, functionID: Function.IDValue) {
+    nonisolated(unsafe) init(id: Int? = nil, saleDate: Date, username: String, mail: String, total: Double, numberOfSeats: Int, seatsReserved: String, functionID: Function.IDValue) {
         self.id = id
         self.saleDate = saleDate
         self.username = username
