@@ -20,8 +20,8 @@ final class Function: Model, Content, @unchecked Sendable {
     var movie: Movie
 
    
-    @Children(for: \.$function)
-    var sales: [Sale]
+    // @Children(for: \.$function)
+    // var sales: [Sale]
 
     nonisolated(unsafe) init() { }
 
