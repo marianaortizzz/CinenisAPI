@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CinenisAPI}",
+            "name": "Debug App",
+            "program": "${workspaceFolder:CinenisAPI}/.build/debug/App",
+            "preLaunchTask": "swift: Build Debug App"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CinenisAPI}",
+            "name": "Release App",
+            "program": "${workspaceFolder:CinenisAPI}/.build/release/App",
+            "preLaunchTask": "swift: Build Release App"
+        }
+    ]
+}

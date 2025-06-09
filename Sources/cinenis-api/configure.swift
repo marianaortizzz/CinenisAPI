@@ -19,8 +19,9 @@ app.databases.use(DatabaseConfigurationFactory.mysql(
 
     app.migrations.add(CreateMovie())
     app.migrations.add(CreateFunction())
-    app.migrations.add(CreateSale())
+    // app.migrations.add(CreateSale())
 
     // register routes
     try routes(app)
+    try app.register(collection: MovieController())
 }
