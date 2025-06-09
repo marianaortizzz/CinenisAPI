@@ -1,8 +1,7 @@
 import Vapor
 import Foundation
 
-struct SalesDTO : Content {
-    var id : Int?
+struct CreateSaleDTO : Content {
     var saleDate : Date
     var username : String
     var mail : String
