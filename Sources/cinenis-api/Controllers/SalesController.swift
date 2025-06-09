@@ -8,6 +8,7 @@ struct SalesController : RouteCollection {
 
         sales.get(use: self.getSales)
         sales.post(use: self.create)
+        sales.get(":id", use: self.getSaleByID)
         
     }
 
@@ -32,6 +33,17 @@ struct SalesController : RouteCollection {
             seatsReserved: dto.seatsReserved, 
             functionID: dto.functionID)
         try await sale.save(on: req.db)
+        try await sale.$function.load(on: req.db)
+        return try ResponseSaleDTO(sale: sale)
+    }
+
+    func getSaleByID(req: Request) async throws -> ResponseSaleDTO {
+        guard let id = req.parameters.get("id", as: Int.self) else {
+            throw Abort(.badRequest, reason: "ID de venta inválido")
+        }
+        guard let sale = try await Sale.find(id, on: req.db) else {
+            throw Abort(.notFound, reason: "Venta no encontrada")
+        }
         try await sale.$function.load(on: req.db)
         return try ResponseSaleDTO(sale: sale)
     }

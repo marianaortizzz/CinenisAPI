@@ -20,7 +20,6 @@ struct ResponseSaleDTO : Content {
         self.numberOfSeats = sale.numberOfSeats
         self.seatsReserved = sale.seatsReserved
         self.functionID = sale.$function.id
-        // si cargaste la relación con `.with(\.$function)`, también podrías exponer más campos de Function aquí
     }
 
 }
