@@ -10,6 +10,7 @@ struct SalesController : RouteCollection {
         sales.post(use: self.create)
         sales.get(":id", use: self.getSaleByID)
         sales.put(":id", use: self.update)
+        sales.delete(":id", use: delete)
 
         
     }
@@ -69,6 +70,20 @@ struct SalesController : RouteCollection {
         try await sale.$function.load(on: req.db)
         return try ResponseSaleDTO(sale: sale)
     }
+
+    func delete(req: Request) async throws -> ResponseSaleDTO {
+        guard let id = req.parameters.get("id", as: Int.self) else {
+            throw Abort(.badRequest, reason: "ID de venta inválido")
+        }
+        guard let sale = try await Sale.find(id, on: req.db) else {
+            throw Abort(.notFound, reason: "Venta no encontrada")
+        }
+        try await sale.$function.load(on: req.db)
+        let deletedDTO = try ResponseSaleDTO(sale: sale)
+        try await sale.delete(on: req.db)
+        return deletedDTO
+    }
+
 
 
 
