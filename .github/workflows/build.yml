@@ -17,7 +17,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
 
       - name: Crear la imagen de Docker
-        run: docker build -t josaplus/cinenis .
+        run: docker build -t josaplus/cinenis:latest .
 
       - name: Subir la imagen a DockerHub
         run: docker push josaplus/cinenis:latest
