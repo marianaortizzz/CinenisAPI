@@ -1,0 +1,40 @@
+name: Docker cinenis
+
+on: 
+  push:
+    branches:
+      - main
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: login en DockerHub
+        uses: docker login -u ${{ secrets.DOCKER_USER }} -p "${{ secrets.DOCKER_PASSWORD }}"
+
+      - name: Crear la imagen de Docker
+        run: docker build -t josaplus/cinenis .
+
+      - name: Subir la imagen a DockerHub
+        run: docker push josaplus/cinenis:latest
+      
+  migrate_db:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Ejecutar migraciones
+        run: |
+          docker container run --rm \
+            --network host \
+            -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            -e DATABASE_USER="${{ secrets.DATABASE_USER }}" \
+            -e DATABASE_PASSWORD="${{ secrets.DATABASE_PASSWORD }}" \
+            -e DATABASE_NAME="${{ secrets.DATABASE_NAME }}" \
+            -e DATABASE_HOST="${{ secrets.DATABASE_HOST }}" \
+            -e DATABASE_PORT="${{ secrets.DATABASE_PORT }}" \
+            josaplus/cinenis:latest migrate --yes
