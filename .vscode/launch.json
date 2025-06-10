@@ -17,6 +17,24 @@
             "name": "Release App",
             "program": "${workspaceFolder:CinenisAPI}/.build/release/App",
             "preLaunchTask": "swift: Build Release App"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CinenisAPI}",
+            "name": "Debug cinenis-api",
+            "program": "${workspaceFolder:CinenisAPI}/.build/debug/cinenis-api",
+            "preLaunchTask": "swift: Build Debug cinenis-api"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CinenisAPI}",
+            "name": "Release cinenis-api",
+            "program": "${workspaceFolder:CinenisAPI}/.build/release/cinenis-api",
+            "preLaunchTask": "swift: Build Release cinenis-api"
         }
     ]
 }

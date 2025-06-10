@@ -7,7 +7,7 @@ let package = Package(
         .macOS(.v13)
     ],
     products: [ // <-- ¡Ahora products va primero!
-        .executable(name: "App", targets: ["App"]),
+        .executable(name: "cinenis-api", targets: ["App"]),
     ],
     dependencies: [ // <-- Y dependencies va después
         // 💧 A server-side Swift web framework.
