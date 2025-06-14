@@ -8,5 +8,6 @@ struct CreateSaleDTO : Content {
     var total : Double
     var numberOfSeats : Int
     var seatsReserved : String
+    var qrCode : String?
     var functionID: Int
 }
