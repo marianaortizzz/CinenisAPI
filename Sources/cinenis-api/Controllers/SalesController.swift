@@ -1,6 +1,7 @@
 import Vapor
 import Fluent
 
+
 struct SalesController : RouteCollection {
 
     func boot(routes: any RoutesBuilder) throws {
@@ -10,9 +11,7 @@ struct SalesController : RouteCollection {
         sales.post(use: self.create)
         sales.get(":id", use: self.getSaleByID)
         sales.put(":id", use: self.update)
-        sales.delete(":id", use: delete)
-
-        
+        sales.delete(":id", use: delete)    
     }
 
     func getSales(req: Request) async throws -> [ResponseSaleDTO] {
@@ -34,9 +33,12 @@ struct SalesController : RouteCollection {
             total: dto.total, 
             numberOfSeats: dto.numberOfSeats, 
             seatsReserved: dto.seatsReserved, 
+            qrCode: dto.qrCode,
             functionID: dto.functionID)
         try await sale.save(on: req.db)
         try await sale.$function.load(on: req.db)
+
+
         return try ResponseSaleDTO(sale: sale)
     }
 
@@ -84,7 +86,20 @@ struct SalesController : RouteCollection {
         return deletedDTO
     }
 
-
-
-
+    private func generateBase64QR(from dto: ResponseSaleDTO) throws -> String {
+    let json = try JSONEncoder().encode(dto)
+    let text = String(decoding: json, as: UTF8.self)
+    // URL-encode
+    guard let escaped = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+        throw Abort(.internalServerError)
+    }
+    // Google Charts QR API
+    let urlString = "https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=\(escaped)"
+    guard let url = URL(string: urlString),
+            let data = try? Data(contentsOf: url)
+    else {
+        throw Abort(.internalServerError, reason: "No se obtuvo imagen de QR")
+    }
+    return data.base64EncodedString()
+    }
 }

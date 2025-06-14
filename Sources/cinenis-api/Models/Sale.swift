@@ -24,13 +24,25 @@ final class Sale: Model, Content, @unchecked Sendable {
     @Field(key: "seats_reserved")
     var seatsReserved: String 
 
+    @Field(key: "qr_code")
+    var qrCode: String?
     
     @Parent(key: "id_function")
     var function: Function
 
     nonisolated(unsafe) init() { }
 
-    nonisolated(unsafe) init(id: Int? = nil, saleDate: Date, username: String, mail: String, total: Double, numberOfSeats: Int, seatsReserved: String, functionID: Function.IDValue) {
+    nonisolated(unsafe) init(
+        id: Int? = nil, 
+        saleDate: Date, 
+        username: String, 
+        mail: String, 
+        total: Double, 
+        numberOfSeats: Int, 
+        seatsReserved: String, 
+        qrCode: String? = nil, 
+        functionID: Function.IDValue) 
+        {
         self.id = id
         self.saleDate = saleDate
         self.username = username
@@ -38,6 +50,7 @@ final class Sale: Model, Content, @unchecked Sendable {
         self.total = total
         self.numberOfSeats = numberOfSeats
         self.seatsReserved = seatsReserved
+        self.qrCode = qrCode
         self.$function.id = functionID 
     }
 }
