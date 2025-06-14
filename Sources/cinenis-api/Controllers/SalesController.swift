@@ -39,7 +39,7 @@ struct SalesController : RouteCollection {
         try await sale.$function.load(on: req.db)
 
 
-        return try ResponseSaleDTO(sale: sale, qrCode: qrCode)
+        return try ResponseSaleDTO(sale: sale)
     }
 
     func getSaleByID(req: Request) async throws -> ResponseSaleDTO {
