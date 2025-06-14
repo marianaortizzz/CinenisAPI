@@ -14,6 +14,7 @@ struct CreateMovie: AsyncMigration {
             .field("stars", .int, .required)
             .field("duration", .int, .required)
             .field("classification", .string, .required)
+            .field("premiere", .bool, .required)
             .field("schedule", .string, .required)
             .create()
     }

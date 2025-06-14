@@ -37,6 +37,9 @@ final class Movie: Model, Content, @unchecked Sendable {
     @Field(key: "classification")
     var classification: String 
 
+    @Field(key: "premiere")
+    var premiere: Bool 
+
     @Field(key: "schedule")
     var schedule: String
 
@@ -45,7 +48,7 @@ final class Movie: Model, Content, @unchecked Sendable {
 
     nonisolated(unsafe) init() { } 
 
-    nonisolated(unsafe) init(id: Int? = nil, title: String, genre: String, year: Int, director: String, actors: String, image: String, description: String, stars: Int, duration: Int, classification: String, schedule: String) {
+    nonisolated(unsafe) init(id: Int? = nil, title: String, genre: String, year: Int, director: String, actors: String, image: String, description: String, stars: Int, duration: Int, classification: String, premiere: Bool, schedule: String) {
         self.id = id
         self.title = title
         self.genre = genre
@@ -57,6 +60,7 @@ final class Movie: Model, Content, @unchecked Sendable {
         self.stars = stars
         self.duration = duration
         self.classification = classification
+        self.premiere = premiere
         self.schedule = schedule
     }
 }

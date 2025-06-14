@@ -10,6 +10,7 @@ struct FunctionController : RouteCollection{
         functions.get("filter", use: self.getFilteredFunctions)
         functions.put("updateAvailability", use: self.updateAvailability)
         functions.delete(use: self.deleteFunction)
+        functions.get("premieres", use: self.getPremieres)
     }
 
     func create(req: Request) async throws -> ResponseFunctionDTO{
@@ -61,6 +62,20 @@ struct FunctionController : RouteCollection{
                 if(dateComponents.day == dto.day && dateComponents.month == dto.month && dateComponents.year == dto.year){
                     functionsMock.append(functionDTO)
                 }
+        }
+        return functionsMock
+    }
+
+    func getPremieres(req:Request) async throws -> [ResponseFunctionDTO]{
+        var functionsMock : [ResponseFunctionDTO] = []
+        var functionsDB = try await Function.query(on:req.db)
+            .join(parent: \Function.$movie)
+            .filter(Movie.self, \.$premiere == true)
+            .with(\.$movie)
+            .all()
+        try functionsDB.forEach{ function in
+            var functionDTO = try ResponseFunctionDTO(function: function)
+            functionsMock.append(functionDTO)
         }
         return functionsMock
     }

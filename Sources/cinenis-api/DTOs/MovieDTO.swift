@@ -13,5 +13,6 @@ struct MovieDTO: Content {
     var stars: Int
     var duration: Int
     var classification: String
+    var premiere: Bool
     var schedule: String
 }

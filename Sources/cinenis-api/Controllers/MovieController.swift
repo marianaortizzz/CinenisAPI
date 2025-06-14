@@ -30,6 +30,7 @@ struct MovieController: RouteCollection {
                 stars: movie.stars,
                 duration: movie.duration,
                 classification: movie.classification,
+                premiere: movie.premiere,
                 schedule: movie.schedule
             )
         }
@@ -57,6 +58,7 @@ struct MovieController: RouteCollection {
             stars: movie.stars,
             duration: movie.duration,
             classification: movie.classification,
+            premiere: movie.premiere,
             schedule: movie.schedule
         )
     }
@@ -76,6 +78,7 @@ struct MovieController: RouteCollection {
             stars: movieDTO.stars,
             duration: movieDTO.duration,
             classification: movieDTO.classification,
+            premiere: movieDTO.premiere,
             schedule: movieDTO.schedule
         )
 
@@ -93,6 +96,7 @@ struct MovieController: RouteCollection {
             stars: movie.stars,
             duration: movie.duration,
             classification: movie.classification,
+            premiere: movie.premiere,
             schedule: movie.schedule
         )
     }
@@ -116,6 +120,7 @@ struct MovieController: RouteCollection {
         movie.stars = input.stars
         movie.duration = input.duration
         movie.classification = input.classification
+        movie.premiere = input.premiere
         movie.schedule = input.schedule
 
         try await movie.save(on: req.db)
@@ -132,6 +137,7 @@ struct MovieController: RouteCollection {
             stars: movie.stars,
             duration: movie.duration,
             classification: movie.classification,
+            premiere: movie.premiere,
             schedule: movie.schedule
         )
     }

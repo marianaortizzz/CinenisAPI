@@ -7,4 +7,5 @@ struct MovieFunctionDTO : Content{
     let day : Int
     let month: Int
     let year: Int
+    let premiere: Bool
 }
