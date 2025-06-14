@@ -15,6 +15,13 @@ final class Movie: Model, Content, @unchecked Sendable {
 
     @Field(key: "year")
     var year: Int 
+
+    @Field(key: "director")
+    var director: String
+
+    @Field(key: "actors")
+    var actors: String
+
     @Field(key: "image")
     var image: String
 
@@ -38,11 +45,13 @@ final class Movie: Model, Content, @unchecked Sendable {
 
     nonisolated(unsafe) init() { } 
 
-    nonisolated(unsafe) init(id: Int? = nil, title: String, genre: String, year: Int, image: String, description: String, stars: Int, duration: Int, classification: String, schedule: String) {
+    nonisolated(unsafe) init(id: Int? = nil, title: String, genre: String, year: Int, director: String, actors: String, image: String, description: String, stars: Int, duration: Int, classification: String, schedule: String) {
         self.id = id
         self.title = title
         self.genre = genre
         self.year = year
+        self.director = director
+        self.actors = actors
         self.image = image
         self.description = description
         self.stars = stars

@@ -7,6 +7,8 @@ struct CreateMovie: AsyncMigration {
             .field("title", .string, .required)
             .field("genre", .string, .required)
             .field("year", .int, .required)
+            .field("director", .string, .required)
+            .field("actors", .string, .required)
             .field("image", .string, .required)
             .field("description", .string, .required)
             .field("stars", .int, .required)

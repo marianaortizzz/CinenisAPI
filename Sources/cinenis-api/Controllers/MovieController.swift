@@ -23,6 +23,8 @@ struct MovieController: RouteCollection {
                 title: movie.title,
                 genre: movie.genre,
                 year: movie.year,
+                director: movie.director,
+                actors: movie.actors,
                 image: movie.image,
                 description: movie.description,
                 stars: movie.stars,
@@ -48,6 +50,8 @@ struct MovieController: RouteCollection {
             title: movie.title,
             genre: movie.genre,
             year: movie.year,
+            director: movie.director,
+            actors: movie.actors,
             image: movie.image,
             description: movie.description,
             stars: movie.stars,
@@ -65,6 +69,8 @@ struct MovieController: RouteCollection {
             title: movieDTO.title,
             genre: movieDTO.genre,
             year: movieDTO.year,
+            director: movieDTO.director,
+            actors: movieDTO.actors,
             image: movieDTO.image,
             description: movieDTO.description,
             stars: movieDTO.stars,
@@ -80,6 +86,8 @@ struct MovieController: RouteCollection {
             title: movie.title,
             genre: movie.genre,
             year: movie.year,
+            director: movie.director,
+            actors: movie.actors,
             image: movie.image,
             description: movie.description,
             stars: movie.stars,
@@ -101,6 +109,8 @@ struct MovieController: RouteCollection {
         movie.title = input.title
         movie.genre = input.genre
         movie.year = input.year
+        movie.director = input.director
+        movie.actors = input.actors
         movie.image = input.image
         movie.description = input.description
         movie.stars = input.stars
@@ -115,6 +125,8 @@ struct MovieController: RouteCollection {
             title: movie.title,
             genre: movie.genre,
             year: movie.year,
+            director: movie.director,
+            actors: movie.actors,
             image: movie.image,
             description: movie.description,
             stars: movie.stars,

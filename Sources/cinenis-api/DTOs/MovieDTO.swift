@@ -6,6 +6,8 @@ struct MovieDTO: Content {
     var title: String
     var genre: String
     var year: Int
+    var director: String
+    var actors: String
     var image: String
     var description: String
     var stars: Int
