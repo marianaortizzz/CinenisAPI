@@ -10,8 +10,9 @@ struct ResponseSaleDTO : Content {
     var numberOfSeats : Int
     var seatsReserved : String
     var functionID: Int
+    var qrCode : String?
 
-    init(sale: Sale) throws {
+    init(sale: Sale, qrCode: String? = nil) throws {
         self.id = sale.id
         self.saleDate = sale.saleDate
         self.username = sale.username
@@ -20,6 +21,7 @@ struct ResponseSaleDTO : Content {
         self.numberOfSeats = sale.numberOfSeats
         self.seatsReserved = sale.seatsReserved
         self.functionID = sale.$function.id
+        self.qrCode = sale.qrCode
     }
 
 }

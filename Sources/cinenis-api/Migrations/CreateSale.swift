@@ -10,6 +10,7 @@ struct CreateSale: AsyncMigration {
             .field("total", .double, .required)
             .field("number_of_seats", .int, .required)
             .field("seats_reserved", .string, .required)
+            .field("qr_code", .string)
             .field("id_function", .int, .required, .references(Function.schema, "id")) 
             .create()
     }
