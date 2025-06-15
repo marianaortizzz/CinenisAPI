@@ -9,6 +9,7 @@ struct FunctionController : RouteCollection{
         functions.post(use: self.create)
         functions.get("movieFunctions", use: self.getFunctionsByMovie)
         functions.get("moviesFiltered", use: self.getMoviesByFunctionsAndCategory)
+        functions.get("byId", use: self.getFunctionById)
         functions.put("updateAvailability", use: self.updateAvailability)
         functions.delete(use: self.deleteFunction)
         functions.get("premieres", use: self.getPremieres)
@@ -142,6 +143,20 @@ struct FunctionController : RouteCollection{
         }
         return functionsMock
     }
+
+    func getFunctionById(req: Request) async throws -> ResponseFunctionDTO{
+        guard let id = req.parameters.get("id", as: Int.self) else {
+            throw Abort(.badRequest, reason: "ID de venta inválido")
+        }
+        var functionDB = try await Function.query(on:req.db)
+            .join(parent: \Function.$movie)
+            .filter(Movie.self, \.$id == id)
+            .with(\.$movie)
+            .first()
+        var function = try ResponseFunctionDTO(function: functionDB)
+        return function
+    }
+
 
     func updateAvailability(req: Request) async throws -> String {
         struct UpdateAvailabilityDTO: Content {
