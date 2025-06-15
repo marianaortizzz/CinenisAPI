@@ -153,7 +153,10 @@ struct FunctionController : RouteCollection{
             .filter(Movie.self, \.$id == id)
             .with(\.$movie)
             .first()
-        var function = try ResponseFunctionDTO(function: functionDB)
+        guard let functionUnwrapped = functionDB else {
+            throw Abort(.notFound, reason: "Función no encontrada")
+        }
+        var function = try ResponseFunctionDTO(function: functionUnwrapped)
         return function
     }
 
