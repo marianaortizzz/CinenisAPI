@@ -174,7 +174,7 @@ struct FunctionController : RouteCollection{
         else {
             throw Abort(.notFound, reason: "Function not found")
         }
-        function.availability = dto.availability
+        function.availability = function.availability.append(dto.availability)
         try await function.save(on: req.db)
         return function.availability
     }
