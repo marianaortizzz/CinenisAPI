@@ -124,7 +124,9 @@ struct FunctionController : RouteCollection{
                 let dateComponents = calendar.dateComponents(in: mexicoCityTimeZone, from: function.functionDate)
                 if(dateComponents.day == dto.day && dateComponents.month == dto.month && dateComponents.year == dto.year){
                     var movie = try ResponseMovieDTO(movie: functionDTO.movie)
-                    moviesMock.append(movie)
+                    if !moviesMock.contains(where: { $0.id == movie.id }) {
+                        moviesMock.append(movie)
+                    }
                 }
         }
         return moviesMock
