@@ -7,8 +7,8 @@ struct FunctionController : RouteCollection{
         
         functions.get(use: self.getFunctions)
         functions.post(use: self.create)
-        functions.get("movieFunctions", use: self.getFunctionsByMovie)
-        functions.get("moviesFiltered", use: self.getMoviesByFunctionsAndCategory)
+        functions.post("movieFunctions", use: self.getFunctionsByMovie)
+        functions.post("moviesFiltered", use: self.getMoviesByFunctionsAndCategory)
         functions.get(":id", use: self.getFunctionById)
         functions.put("updateAvailability", use: self.updateAvailability)
         functions.delete(use: self.deleteFunction)
