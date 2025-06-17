@@ -9,7 +9,7 @@ struct FunctionController : RouteCollection{
         functions.post(use: self.create)
         functions.get("movieFunctions", use: self.getFunctionsByMovie)
         functions.get("moviesFiltered", use: self.getMoviesByFunctionsAndCategory)
-        functions.get("byId", use: self.getFunctionById)
+        functions.get(":id", use: self.getFunctionById)
         functions.put("updateAvailability", use: self.updateAvailability)
         functions.delete(use: self.deleteFunction)
         functions.get("premieres", use: self.getPremieres)
@@ -148,16 +148,11 @@ struct FunctionController : RouteCollection{
         guard let id = req.parameters.get("id", as: Int.self) else {
             throw Abort(.badRequest, reason: "ID de venta inválido")
         }
-        var functionDB = try await Function.query(on:req.db)
-            .join(parent: \Function.$movie)
-            .filter(Movie.self, \.$id == id)
-            .with(\.$movie)
-            .first()
-        guard let functionUnwrapped = functionDB else {
-            throw Abort(.notFound, reason: "Función no encontrada")
+        guard let function = try await Function.find(id, on: req.db) else {
+            throw Abort(.notFound, reason: "Funcion no encontrada")
         }
-        var function = try ResponseFunctionDTO(function: functionUnwrapped)
-        return function
+        try await function.$movie.load(on: req.db)
+        return try ResponseFunctionDTO(function: function)
     }
 
 
@@ -174,7 +169,7 @@ struct FunctionController : RouteCollection{
         else {
             throw Abort(.notFound, reason: "Function not found")
         }
-        function.availability.append(dto.availability)
+        function.availability.append(","+dto.availability)
         try await function.save(on: req.db)
         return function.availability
     }
